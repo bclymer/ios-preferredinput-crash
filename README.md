@@ -16,6 +16,15 @@ If the same bluetooth device is the implicit route (`preferredInput` is `nil` bu
 
 You can follow the repro steps below to cause the reset. Change the `captureMode` variable in `ViewController.swift` to change whether you use `AVAudioEngine` or `AVCaptureSession` to cause the reset.
 
+## Impacted Devices / OS
+
+All of my devices reproduce this issue. However, I don't have unlimited devices, so here's what I know this happens on
+| Device Name | OS |
+| -- | -- |
+| iPhone 7 | iOS 14.2 |
+| iPhone Xr | iOS 14.0.1 |
+| iPad Air 2 | iOS 13.7 |
+
 ## Repro Steps
 
 This project makes it easy to recreate the scenario that leads to a crash. It's easiest to have a bluetooth device that can provide input connected before launching the app. I am using a headset with the name `WH-1000XM3` for this example.
