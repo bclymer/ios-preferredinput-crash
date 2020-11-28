@@ -52,12 +52,10 @@ class ViewController: UIViewController, AVCaptureAudioDataOutputSampleBufferDele
     }
 
     @IBAction private func swapDevices() {
-        let bluetoothTypes: [AVAudioSession.Port] = [.bluetoothLE, .bluetoothHFP, .bluetoothA2DP]
-        let isCurrentlyBluetooth = bluetoothTypes.contains(AVAudioSession.sharedInstance().currentRoute.inputs.first!.portType)
+        let isCurrentlyBluetooth = AVAudioSession.sharedInstance().currentRoute.inputs.first!.portType == .bluetoothHFP
         // If currently bluetooth, grab a non-bluetooth and vice-versa
         let newPort = AVAudioSession.sharedInstance().availableInputs?
-            .filter { bluetoothTypes.contains($0.portType) != isCurrentlyBluetooth }
-            .first
+            .first(where: { ($0.portType == .bluetoothHFP) != isCurrentlyBluetooth })
         guard let validPort = newPort else {
             print("Couldn't find a valid port. Looking for a \(isCurrentlyBluetooth ? "non-" : "")bluetooth port")
             return

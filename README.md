@@ -50,6 +50,20 @@ This project makes it easy to recreate the scenario that leads to a crash. It's 
     ```
     This is a failure, all media services are shut down during this time. You can't do any I/O with video or audio.
 
+It is important to note that out of all the notifications that we are listening to none of them fire before media services are lost.
+```
+AVAudioSession.interruptionNotification,
+AVAudioSession.routeChangeNotification,
+NSNotification.Name.AVAudioEngineConfigurationChange,
+NSNotification.Name.AVCaptureInputPortFormatDescriptionDidChange,
+NSNotification.Name.AVCaptureSessionRuntimeError,
+NSNotification.Name.AVCaptureSessionWasInterrupted,
+NSNotification.Name.AVCaptureSessionInterruptionEnded,
+NSNotification.Name.AVCaptureSessionDidStopRunning,
+NSNotification.Name.AVCaptureSessionDidStartRunning,
+```
+This means there is no simple way to change the preferred input or stop `AVAudioEngine`/`AVCaptureSession` in time to prevent the services loss.
+
 So the total logs should look something like:
 ```
 Connected WH-1000XM3 with new capture session
